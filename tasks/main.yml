@@ -35,7 +35,6 @@
     executable: /bin/bash
   register: samba_create_users
   changed_when: "'Added user' in samba_create_users.stdout"
-  no_log: true
 
 - name: shell - set samba passwords correctly
   shell: >
@@ -47,7 +46,6 @@
     executable: /bin/bash
   register: samba_verify_users
   changed_when: "'New SMB password' in samba_verify_users.stdout"
-  no_log: true
 
 - name: Restart samba service
   ansible.builtin.service:
