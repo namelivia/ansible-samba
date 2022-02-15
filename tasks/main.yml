@@ -1,0 +1,29 @@
+---
+- name: 'Check mandatory variables are defined'
+  assert:
+    that:
+      - target_path is defined
+
+- name: Install required system packages
+  apt: name={{ item }} state=latest update_cache=yes
+  loop:
+    - 'samba'
+    - 'samba-common-bin'
+
+- name: Check that target folder exists
+  stat:
+    path: {{ target_path }}
+
+- name: Configure samba
+  template:
+    src: smb.j2
+    dest: "/etc/samba/smb.conf"
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Restart samba service
+  ansible.builtin.service:
+    name: smbd
+    state: restarted
+
