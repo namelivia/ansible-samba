@@ -1,6 +1,7 @@
-[share]
+[{{ share _name }}]
 path = {{ target_path }}
 writeable=Yes
 create mask=0777
 directory mask=0777
+valid_users={{ samba_username }}
 public=no
