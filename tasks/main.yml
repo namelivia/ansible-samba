@@ -12,7 +12,7 @@
 
 - name: Check that target folder exists
   stat:
-    path: {{ target_path }}
+    path: "{{ target_path }}"
 
 - name: Configure samba
   template:
@@ -26,4 +26,3 @@
   ansible.builtin.service:
     name: smbd
     state: restarted
-
