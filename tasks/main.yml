@@ -25,7 +25,11 @@
     group: root
     mode: '0644'
 
-- name: shell - create samba users
+- name: create user
+  ansible.builtin.user:
+    name: "{{ samba_user }}"
+
+- name: Create samba user
   shell: >
     set -e -o pipefail
     && (pdbedit --user={{ samba_username }} 2>&1 > /dev/null)
@@ -36,7 +40,7 @@
   register: samba_create_users
   changed_when: "'Added user' in samba_create_users.stdout"
 
-- name: shell - set samba passwords correctly
+- name: Set samba password
   shell: >
     set -e -o pipefail
     && (smbclient -U {{ samba_username }}%{{ samba_password }} -L 127.0.0.1 2>&1 > /dev/null)
