@@ -27,7 +27,7 @@
 
 - name: create user
   ansible.builtin.user:
-    name: "{{ samba_user }}"
+    name: "{{ samba_username }}"
 
 - name: Create samba user
   shell: >
