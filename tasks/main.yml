@@ -29,6 +29,18 @@
   ansible.builtin.user:
     name: "{{ samba_username }}"
 
+- name: create group for the users that can write on the volume
+  ansible.builtin.group:
+    name: "samba-share"
+    state: present
+
+- name: add user to group
+  user:
+    name: '{{ samba_username }}'
+    groups: "samba-share"
+    append: true
+
+
 - name: Create samba user
   shell: >
     set -e -o pipefail
