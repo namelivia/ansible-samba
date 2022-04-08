@@ -7,6 +7,7 @@
       - samba_username is defined
       - samba_password is defined
       - samba_group is defined
+      - home_username is defined
 
 - name: Install required system packages
   apt: name={{ item }} state=latest update_cache=yes
@@ -35,12 +36,25 @@
     name: "{{ samba_group }}"
     state: present
 
-- name: add user to group
+- name: add samba user to group
   user:
     name: '{{ samba_username }}'
     groups: "{{ samba_group }}"
     append: true
 
+- name: add samba user to group
+  user:
+    name: '{{ home_username }}'
+    groups: "{{ samba_group }}"
+    append: true
+
+- name: assign the target path to the group
+  ansible.builtin.file:
+    path: "{{ target_path }}"
+    state: directory
+    recurse: true
+    owner: '{{ samba_user }}'
+    group: '{{ samba_group }}'
 
 - name: Create samba user
   shell: >
