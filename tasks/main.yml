@@ -6,6 +6,7 @@
       - share_name is defined
       - samba_username is defined
       - samba_password is defined
+      - samba_group is defined
 
 - name: Install required system packages
   apt: name={{ item }} state=latest update_cache=yes
@@ -31,13 +32,13 @@
 
 - name: create group for the users that can write on the volume
   ansible.builtin.group:
-    name: "samba-share"
+    name: "{{ samba_group }}"
     state: present
 
 - name: add user to group
   user:
     name: '{{ samba_username }}'
-    groups: "samba-share"
+    groups: "{{ samba_group }}"
     append: true
 
 
