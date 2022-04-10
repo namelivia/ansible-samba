@@ -42,7 +42,7 @@
     groups: "{{ samba_group }}"
     append: true
 
-- name: add samba user to group
+- name: add home user to group
   user:
     name: '{{ home_username }}'
     groups: "{{ samba_group }}"
@@ -53,7 +53,7 @@
     path: "{{ target_path }}"
     state: directory
     recurse: true
-    owner: '{{ samba_username }}'
+    owner: '{{ home_user }}'
     group: '{{ samba_group }}'
 
 - name: Create samba user
