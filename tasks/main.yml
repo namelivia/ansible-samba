@@ -53,7 +53,7 @@
     path: "{{ target_path }}"
     state: directory
     recurse: true
-    owner: '{{ samba_user }}'
+    owner: '{{ samba_username }}'
     group: '{{ samba_group }}'
 
 - name: Create samba user
